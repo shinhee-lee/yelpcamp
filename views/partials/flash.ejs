@@ -1,0 +1,24 @@
+<%if (success && success.length){%>
+<!--success가 있을 때만 alert 뜨도록 함-->
+<div class="alert alert-success alert-dismissible fade show" role="alert">
+  <%=success%>
+  <button
+    type="button"
+    class="btn-close"
+    data-bs-dismiss="alert"
+    aria-label="Close"
+  ></button>
+</div>
+
+<%}%> <%if (error && error.length){%>
+<!--success가 있을 때만 alert 뜨도록 함-->
+<div class="alert alert-danger alert-dismissible fade show" role="alert">
+  <%=error%> <%=success%>
+  <button
+    type="button"
+    class="btn-close"
+    data-bs-dismiss="alert"
+    aria-label="Close"
+  ></button>
+</div>
+<%}%>

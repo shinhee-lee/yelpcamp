@@ -1,0 +1,112 @@
+<% layout ('layouts/boilerplate')%>
+
+<div class="row">
+  <h1 class="text-center">New Campground</h1>
+  <div class="col-md-6 offset-md-3 my-5">
+    <div class="card shadow">
+      <div class="card-body">
+        <form
+          action="/campgrounds"
+          method="POST"
+          novalidate
+          class="validated-form"
+          enctype="multipart/form-data"
+        >
+          <!--novalidate: 브라우저가 아니라 우리가 유효성 검사 함-->
+          <div class="mb-3">
+            <label class="form-label" for="title">Title</label>
+            <!-- name>>campground로 grouping!::  -->
+            <!-- 중괄호에 이름, 위치 넣으면 데이터가 post로 request하여  -->
+            <!-- express->server 순으로 갈 때 body에 포함된게 campground라고 정렬됨 -->
+            <!-- 이렇게 하면 body가 다음과 같아짐 {"campground":{"title":"asdfe","location":"dsfwed fdsf"}} -->
+            <!-- campground 안에 title과 location이 넣어지며 grouping 됨 -->
+            <input
+              class="form-control"
+              type="text"
+              id="title"
+              name="campground[title]"
+              required
+            />
+            <div class="valid-feedback">
+              <!-- 제대로 된 값일 때 초록색으로 나올 글씨-->
+              Looks Good
+            </div>
+          </div>
+          <div class="mb-3">
+            <label class="form-label" for="location">Location</label>
+            <input
+              class="form-control"
+              type="text"
+              id="location"
+              name="campground[location]"
+              required
+            />
+            <div class="valid-feedback">Looks Good</div>
+          </div>
+
+          <!-- <div class="mb-3">
+        <label class="form-label" for="image">Image Url</label>
+        <input
+          class="form-control"
+          type="text"
+          id="image"
+          name="campground[image]"
+          required
+        />
+        <div class="valid-feedback">Looks Good</div>
+      </div> -->
+          <div class="mb-3">
+            <label class="form-label" for="price">Campground Price</label>
+            <div class="input-group">
+              <span class="input-group-text" id="price-label">$</span>
+              <input
+                type="text"
+                class="form-control"
+                id="price"
+                placeholder="0.00"
+                aria-label="price"
+                aria-describedby="price-label"
+                name="campground[price]"
+                required
+              />
+              <!-- price-label: span과 input 연결 -->
+            </div>
+            <div class="valid-feedback">Looks Good</div>
+          </div>
+          <div class="mb-3">
+            <label class="form-label" for="description">Description</label>
+            <textarea
+              class="form-control"
+              type="text"
+              id="description"
+              name="campground[description]"
+              required
+            ></textarea>
+            <div class="valid-feedback">Looks Good</div>
+          </div>
+          <div class="mb-3">
+            <div class="form-file custom-file">
+              <label for="image" class="form-label">
+                Upload Images
+                <!-- <span class="form-file-text custom-file-label"
+              >Choose image(s)...</span
+            > -->
+              </label>
+              <input
+                class="form-control"
+                type="file"
+                name="image"
+                id="image"
+                multiple
+              />
+            </div>
+          </div>
+          <div class="mb-3">
+            <button class="btn btn-success">Add Campground</button>
+          </div>
+        </form>
+        <a href="/campgrounds">All Campgrounds</a>
+      </div>
+    </div>
+  </div>
+</div>
