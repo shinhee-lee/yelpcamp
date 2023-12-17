@@ -28,10 +28,8 @@ const campgroundRoutes = require("./routes/campgrounds");
 const reviewRoutes = require("./routes/reviews");
 
 //DB에 mongoose 연결
-const dbUrl = "mongodb://127.0.0.1:27017/yelp-camp";
+const dbUrl = process.env.DB_URL || "mongodb://127.0.0.1:27017/yelp-camp";
 //+ useFindAndModify: false ??
-// const dbUrl = process.env.DB_URL;
-mongoose.connect(dbUrl);
 
 const db = mongoose.connection;
 db.on("error", console.error.bind(console, "connection error:"));
@@ -56,8 +54,11 @@ app.use(express.static(path.join(__dirname, "public"))); //static Asset을 위�
 app.use(mongoSanitize({ replaceWith: "_" }));
 
 //***********************************SESSION & FLASH*************************************
+const secret = process.env.SECRET || "thisshouldbeabettersecret";
+
 const store = MongoStore.create({
   mongoUrl: dbUrl,
+  secret,
   touchAfter: 24 * 60 * 60, //불필요한 업데이트 하지 말고 touchafter 시간에 한 번씩 업데이트
   crypto: {
     secret: "thisshouldbeabettersecret",
@@ -70,7 +71,7 @@ store.on("error", function (e) {
 const sessionConfig = {
   store,
   name: "snyoong", //session id 이름을 connect.sid에서 snyoong으로 바꿈 >> 해킹 방해
-  secret: "thisshouldbeabettersecret",
+  secret,
   resave: false,
   saveUninitialized: true,
   cookie: {
